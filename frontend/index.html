@@ -1,0 +1,610 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta
+        name="description"
+        content="Academic pneumonia classification using Custom CNN and DenseNet121."
+    >
+
+    <title>Pneumonia Classification</title>
+
+    <link rel="stylesheet" href="css/style.css">
+
+    <script type="module" src="js/app.js"></script>
+</head>
+
+<body>
+
+    <!-- HEADER -->
+
+    <header class="header">
+
+        <div class="header-inner">
+
+            <a href="#" class="brand">
+
+                <span class="brand-icon">PC</span>
+
+                <span>Pneumonia Classification</span>
+
+            </a>
+
+
+            <div class="backend-status">
+
+                <span
+                    id="backend-indicator"
+                    class="status-indicator"
+                ></span>
+
+                <span id="backend-status">
+                    Checking backend...
+                </span>
+
+            </div>
+
+        </div>
+
+    </header>
+
+
+    <!-- MAIN CONTENT -->
+
+    <main class="main-container">
+
+
+        <!-- INTRODUCTION -->
+
+        <section class="intro">
+
+            <span class="eyebrow">
+                IMAGE PROCESSING COURSE PROJECT
+            </span>
+
+            <h1>
+                Chest X-ray <span>Analysis</span>
+            </h1>
+
+            <p>
+                Pneumonia classification using Custom CNN
+                and DenseNet121 deep learning architectures.
+            </p>
+
+        </section>
+
+
+        <!-- MAIN WORKSPACE -->
+
+        <section class="workspace">
+
+
+            <!-- LEFT COLUMN -->
+
+            <aside class="left-column">
+
+
+                <!-- IMAGE UPLOAD PANEL -->
+
+                <div class="panel upload-panel">
+
+                    <div class="panel-heading">
+
+                        <span class="section-number">01</span>
+
+                        <div>
+
+                            <h2>X-ray Image</h2>
+
+                            <p>
+                                Upload a chest X-ray image
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- UPLOAD AREA -->
+
+                    <div
+                        class="upload-area"
+                        id="upload-area"
+                    >
+
+                        <input
+                            type="file"
+                            id="image-input"
+                            accept=".jpg,.jpeg,.png,.webp"
+                            hidden
+                        >
+
+
+                        <div
+                            id="upload-placeholder"
+                            class="upload-placeholder"
+                        >
+
+                            <div class="upload-icon">
+
+                                <svg
+                                    viewBox="0 0 24 24"
+                                    width="42"
+                                    height="42"
+                                    fill="none"
+                                    stroke="currentColor"
+                                    stroke-width="1.5"
+                                >
+
+                                    <path d="M12 16V4"></path>
+
+                                    <path d="M7 9l5-5 5 5"></path>
+
+                                    <path d="M20 16v3a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2v-3"></path>
+
+                                </svg>
+
+                            </div>
+
+
+                            <h3>Upload X-ray</h3>
+
+                            <p>
+
+                                Drag and drop or
+
+                                <button
+                                    type="button"
+                                    id="browse-button"
+                                    class="text-button"
+                                >
+                                    browse files
+                                </button>
+
+                            </p>
+
+
+                            <span class="file-info">
+                                JPG, JPEG, PNG, WEBP
+                            </span>
+
+                        </div>
+
+
+                        <!-- IMAGE PREVIEW -->
+
+                        <div
+                            id="preview-container"
+                            class="preview-container hidden"
+                        >
+
+                            <img
+                                id="image-preview"
+                                src=""
+                                alt="Chest X-ray preview"
+                            >
+
+                            <div class="preview-details">
+
+                                <span id="file-name"></span>
+
+                                <button
+                                    type="button"
+                                    id="remove-image"
+                                    class="remove-button"
+                                >
+                                    Remove image
+                                </button>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- MODEL SELECTION -->
+
+                    <div class="model-selection">
+
+                        <h3>Model Selection</h3>
+
+                        <p class="selection-description">
+                            Choose the classification model.
+                        </p>
+
+
+                        <label class="model-option">
+
+                            <input
+                                type="radio"
+                                name="model"
+                                value="cnn"
+                            >
+
+                            <span class="radio-custom"></span>
+
+                            <span class="model-text">
+
+                                <strong>Custom CNN</strong>
+
+                                <small>
+                                    Custom convolutional network
+                                </small>
+
+                            </span>
+
+                        </label>
+
+
+                        <label class="model-option">
+
+                            <input
+                                type="radio"
+                                name="model"
+                                value="densenet"
+                            >
+
+                            <span class="radio-custom"></span>
+
+                            <span class="model-text">
+
+                                <strong>DenseNet121</strong>
+
+                                <small>
+                                    Densely connected network
+                                </small>
+
+                            </span>
+
+                        </label>
+
+
+                        <label class="model-option">
+
+                            <input
+                                type="radio"
+                                name="model"
+                                value="both"
+                                checked
+                            >
+
+                            <span class="radio-custom"></span>
+
+                            <span class="model-text">
+
+                                <strong>Both Models</strong>
+
+                                <small>
+                                    Compare both predictions
+                                </small>
+
+                            </span>
+
+                        </label>
+
+                    </div>
+
+
+                    <!-- ANALYZE BUTTON -->
+
+                    <button
+                        type="button"
+                        id="analyze-button"
+                        class="primary-button"
+                        disabled
+                    >
+
+                        <span id="analyze-button-text">
+                            Analyze X-ray
+                        </span>
+
+                        <span
+                            id="loading-spinner"
+                            class="spinner hidden"
+                        ></span>
+
+                    </button>
+
+
+                    <!-- ERROR MESSAGE -->
+
+                    <div
+                        id="upload-message"
+                        class="message hidden"
+                        role="alert"
+                    ></div>
+
+                </div>
+
+
+                <!-- PROJECT INFORMATION -->
+
+                <div class="info-panel">
+
+                    <span class="info-label">
+                        PROJECT MODELS
+                    </span>
+
+
+                    <div class="model-info">
+
+                        <span class="model-info-icon">
+                            01
+                        </span>
+
+                        <div>
+
+                            <strong>Custom CNN</strong>
+
+                            <p>
+                                Custom deep learning architecture
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="model-info">
+
+                        <span class="model-info-icon">
+                            02
+                        </span>
+
+                        <div>
+
+                            <strong>DenseNet121</strong>
+
+                            <p>
+                                Transfer learning architecture
+                            </p>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </aside>
+
+
+            <!-- RIGHT COLUMN -->
+
+            <section class="right-column">
+
+
+                <!-- RESULTS HEADING -->
+
+                <div class="results-heading">
+
+                    <div>
+
+                        <h2>Classification Results</h2>
+
+                    </div>
+
+                    <span
+                        class="results-status"
+                        id="results-status"
+                    >
+                        Waiting for analysis
+                    </span>
+
+                </div>
+
+
+                <!-- CUSTOM CNN RESULT -->
+
+                <article
+                    class="result-panel"
+                    id="cnn-result"
+                >
+
+                    <div class="result-panel-heading">
+
+                        <div class="model-title">
+
+                            <span class="result-model-icon">
+                                01
+                            </span>
+
+                            <div>
+
+                                <h3>Custom CNN</h3>
+
+                                <p>
+                                    Convolutional Neural Network
+                                </p>
+
+                            </div>
+
+                        </div>
+
+
+                        <span class="model-badge">
+                            CNN
+                        </span>
+
+                    </div>
+
+
+                    <div class="result-content">
+
+                        <span class="result-label">
+                            PREDICTION
+                        </span>
+
+
+                        <div
+                            id="cnn-prediction"
+                            class="prediction waiting"
+                        >
+                            Waiting for analysis
+                        </div>
+
+
+                        <div class="result-metrics">
+
+
+                            <div class="metric">
+
+                                <span>
+                                    Prediction Probability
+                                </span>
+
+                                <strong id="cnn-probability">
+                                    —
+                                </strong>
+
+                            </div>
+
+
+                            <div class="metric">
+
+                                <span>
+                                    Inference Time
+                                </span>
+
+                                <strong id="cnn-time">
+                                    —
+                                </strong>
+
+                            </div>
+
+
+                        </div>
+
+
+                        <p
+                            id="cnn-message"
+                            class="model-message"
+                        >
+                            Upload an X-ray and start the analysis.
+                        </p>
+
+                    </div>
+
+                </article>
+
+                <!-- DENSENET RESULT -->
+
+                <article
+                    class="result-panel"
+                    id="densenet-result"
+                >
+
+                    <div class="result-panel-heading">
+
+                        <div class="model-title">
+
+                            <span class="result-model-icon">
+                                02
+                            </span>
+
+                            <div>
+
+                                <h3>DenseNet121</h3>
+
+                                <p>
+                                    Densely Connected Convolutional Network
+                                </p>
+
+                            </div>
+
+                        </div>
+
+
+                        <span class="model-badge">
+                            DENSENET
+                        </span>
+
+                    </div>
+
+
+                    <div class="result-content">
+
+                        <span class="result-label">
+                            PREDICTION
+                        </span>
+
+
+                        <div
+                            id="densenet-prediction"
+                            class="prediction waiting"
+                        >
+                            Waiting for analysis
+                        </div>
+
+
+                        <div class="result-metrics">
+
+
+                            <div class="metric">
+
+                                <span>
+                                    Prediction Probability
+                                </span>
+
+                                <strong id="densenet-probability">
+                                    —
+                                </strong>
+
+                            </div>
+
+
+                            <div class="metric">
+
+                                <span>
+                                    Inference Time
+                                </span>
+
+                                <strong id="densenet-time">
+                                    —
+                                </strong>
+
+                            </div>
+
+
+                        </div>
+
+
+                        <p
+                            id="densenet-message"
+                            class="model-message"
+                        >
+                            Upload an X-ray and start the analysis.
+                        </p>
+
+                    </div>
+
+                </article>
+
+            </section>
+
+        </section>
+
+    </main>
+
+
+    <!-- FOOTER -->
+
+    <footer class="footer">
+
+        <p>
+            IMAGE PROCESSING COURSE PROJECT : IMAGE CLASSIFICATION
+        </p>
+
+        <span>
+            Amede Leblond Djoubi - Can DOGAN - Hanieh SATARI - Khadija SABIR - 
+        </span>
+
+    </footer>
+
+</body>
+
+</html>

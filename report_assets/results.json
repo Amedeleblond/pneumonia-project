@@ -1,0 +1,150 @@
+{
+  "config": {
+    "seed": 42,
+    "img_size": 224,
+    "batch_size": 32,
+    "clahe": true,
+    "pretrained": true,
+    "epochs_cnn": 12,
+    "epochs_B": 14
+  },
+  "official_counts": {
+    "train": {
+      "NORMAL": 1341,
+      "PNEUMONIA": 3875
+    },
+    "val": {
+      "NORMAL": 8,
+      "PNEUMONIA": 8
+    },
+    "test": {
+      "NORMAL": 234,
+      "PNEUMONIA": 390
+    }
+  },
+  "split_counts": {
+    "train": {
+      "NORMAL": 1170,
+      "PNEUMONIA": 3319,
+      "total": 4489
+    },
+    "val": {
+      "NORMAL": 179,
+      "PNEUMONIA": 564,
+      "total": 743
+    },
+    "test": {
+      "NORMAL": 234,
+      "PNEUMONIA": 390,
+      "total": 624
+    }
+  },
+  "class_weight": {
+    "0": 1.9183760683760684,
+    "1": 0.6762579090087376
+  },
+  "patients_groups": 2650,
+  "models": {
+    "A": {
+      "name": "Custom CNN",
+      "val": {
+        "threshold": 0.5,
+        "accuracy": 0.9488559892328399,
+        "precision": 0.9597902097902098,
+        "recall": 0.973404255319149,
+        "specificity": 0.8715083798882681,
+        "f1": 0.9665492957746479,
+        "auc": 0.991045604025516,
+        "tn": 156,
+        "fp": 23,
+        "fn": 15,
+        "tp": 549
+      },
+      "test_05": {
+        "threshold": 0.5,
+        "accuracy": 0.8028846153846154,
+        "precision": 0.7633136094674556,
+        "recall": 0.9923076923076923,
+        "specificity": 0.48717948717948717,
+        "f1": 0.862876254180602,
+        "auc": 0.9381547227701075,
+        "tn": 114,
+        "fp": 120,
+        "fn": 3,
+        "tp": 387
+      },
+      "test_tuned": {
+        "threshold": 0.7999839782714844,
+        "accuracy": 0.875,
+        "precision": 0.8577981651376146,
+        "recall": 0.958974358974359,
+        "specificity": 0.7350427350427351,
+        "f1": 0.9055690072639225,
+        "auc": 0.9381547227701075,
+        "tn": 172,
+        "fp": 62,
+        "fn": 16,
+        "tp": 374
+      },
+      "params": 405793
+    },
+    "B": {
+      "name": "DenseNet121 (transfer learning)",
+      "val": {
+        "threshold": 0.5,
+        "accuracy": 0.971736204576043,
+        "precision": 0.9891891891891892,
+        "recall": 0.973404255319149,
+        "specificity": 0.9664804469273743,
+        "f1": 0.9812332439678284,
+        "auc": 0.9964439954039384,
+        "tn": 173,
+        "fp": 6,
+        "fn": 15,
+        "tp": 549
+      },
+      "test_05": {
+        "threshold": 0.5,
+        "accuracy": 0.8637820512820513,
+        "precision": 0.8265524625267666,
+        "recall": 0.9897435897435898,
+        "specificity": 0.6538461538461539,
+        "f1": 0.9008168028004668,
+        "auc": 0.9681678720140259,
+        "tn": 153,
+        "fp": 81,
+        "fn": 4,
+        "tp": 386
+      },
+      "test_tuned": {
+        "threshold": 0.4947732985019684,
+        "accuracy": 0.8637820512820513,
+        "precision": 0.8265524625267666,
+        "recall": 0.9897435897435898,
+        "specificity": 0.6538461538461539,
+        "f1": 0.9008168028004668,
+        "auc": 0.9681678720140259,
+        "tn": 153,
+        "fp": 81,
+        "fn": 4,
+        "tp": 386
+      },
+      "params": 7103169
+    }
+  },
+  "best": "B",
+  "best_name": "DenseNet121 (transfer learning)",
+  "best_threshold": 0.4947732985019684,
+  "train_minutes": {
+    "A": 3.6,
+    "B": 6.7
+  },
+  "image_stats": {
+    "h_min": 177,
+    "h_med": 899,
+    "h_max": 2663,
+    "w_min": 445,
+    "w_med": 1296,
+    "w_max": 2637
+  }
+}
